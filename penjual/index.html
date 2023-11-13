@@ -48,27 +48,29 @@
     <div cclass="m-2">
       <h1>Helo, penjual pasar cemerlang</h1>
 
-<h3>Tambah Barang</h3>
+      <h3>Tambah Barang</h3>
 
-<form>
-  <div clas="mb-3">
-    <label class="form-label">Nama</label>
-    <input type="text" class="form-control">
-    </div>
-  <div clas="mb-3">
-    <label class="form-label">Harga</label>
-    <input type="text" class="form-control">
-    </div>
-  <div clas="mb-3">
-    <label class="form-label">Foto / Gambar</label>
-    <input type="file" class="form-control">
-    </div>
+      <p id="contoh"></p>
+
+      <form>
+        <div clas="mb-3">
+          <label class="form-label">Nama</label>
+          <input type="text" class="form-control">
+        </div>
+        <div clas="mb-3">
+          <label class="form-label">Harga</label>
+          <input type="text" class="form-control">
+        </div>
+        <div clas="mb-3">
+          <label class="form-label">Foto / Gambar</label>
+          <input type="file" class="form-control">
+        </div>
         <div clas="mb-3">
           <button type="sumbit" class="btn btn-primary">simpan</button>
-    </div>     
-  <form>
+        </div>
+        <form>
     </div>
-    
+
   </div>
   <footer class="py-3 bg-dark-sebtle mt-auto">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -78,8 +80,29 @@
     <p class="text-center text-body-secondary">&copy; 2023 pasar cemerlang</p>
   </footer>
 
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js';
+    import { konfigurasiFirebase } from '/Pasarcemelangbaru/konfigurasi-firebase.js';
+    import { getFirestore, collection, addDoc } from "firebase/firestore";
 
+
+    const app = initializeApp(konfigurasiFirebase);
+    const db = getFirestore(app);
+
+    try {
+      const barangRef = await addDoc(collection(db, "barangq"), {
+        fot: "",
+        nama: "baju"
+        harga: 10000
+      });
+
+      document.getElementById("contoh").innerHTML = barangRef.id;
+    } catch (e) {
+      document.getElementById("contoh").innerHTML = e;
+    }
+  </script>
 </body>
+
 
 </html>
 
